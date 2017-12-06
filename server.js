@@ -38,6 +38,11 @@ const appEnvOpts = vcapLocal ? {
 } : {};
 const appEnv = cfenv.getAppEnv(appEnvOpts);
 
+let appPort = 3000;
+if (!appEnv.isLocal) {
+  appPort = appEnv.port;
+}
+
 let db;
 if (process.env.DB_MEMORY === "true") {
     db = require('./lib/in-memory')();
@@ -102,7 +107,7 @@ app.delete('/api/todos/:id', (req, res) => {
 // connect to the database
 db.init().then(() => {
   // start server on the specified port and binding host
-  app.listen(appEnv.port, "0.0.0.0", function () {
+  app.listen(appPort, "0.0.0.0", function () {
     // print a message when the server starts listening
     console.log("server starting on " + appEnv.url);
   });
