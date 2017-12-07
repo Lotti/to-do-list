@@ -2,4 +2,7 @@ coverage
 node_modules
 npm-debug.log
 tmp
+scripts
+test
+test-ui
 vcap-local.json
